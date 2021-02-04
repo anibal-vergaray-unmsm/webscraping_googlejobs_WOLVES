@@ -75,6 +75,7 @@ class Repository():
             # revertir en caso de error
             print("Error!, rollback")
             print(error)
+            database.rollback()
 
         database.close()
         return keywords
@@ -94,6 +95,6 @@ class Repository():
 
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
-
+            database.rollback()
         database.close()
         return result
