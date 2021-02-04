@@ -102,7 +102,7 @@ class WebScrapingService():
             try:
                 tiempo_publicado = item_detalle.find_element_by_class_name("SuWscb").text
             except:
-                pass
+                tiempo_publicado = ""
 
             empresa = ""
             lugar = ""
