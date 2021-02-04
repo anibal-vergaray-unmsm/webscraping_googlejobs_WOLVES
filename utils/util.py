@@ -41,7 +41,10 @@ class Utils():
             if (salario.lower() in lineaTexto.lower()):
                 return True
 
-    meses = [
+    
+
+    def obtener_fec_pub(self, cadena):
+        meses = [
         ['enero', 31],
         ['febrero', 28],
         ['marzo', 30],
@@ -55,8 +58,6 @@ class Utils():
         ['noviembre', 30],
         ['diciembre', 31]
     ]
-
-    def obtener_fec_pub(self, cadena):
         fecha_actual = datetime.datetime.now()
         hora_actual = fecha_actual.hour
         dia_actual = fecha_actual.day
