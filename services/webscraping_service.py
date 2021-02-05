@@ -167,24 +167,24 @@ class WebScrapingService():
     def insertarOfertaDetalle(self, parrafo, id_oferta):
         for linea_descripcion in parrafo:
             linea_descripcion = linea_descripcion.strip()
-
-            if ( (len(linea_descripcion) > 0) and (not linea_descripcion[0].isalpha()) and (not linea_descripcion == "")):
-                linea_descripcion = linea_descripcion[1:]
+            if ((len(linea_descripcion) > 0)):
+                if( not linea_descripcion[0].isalpha()):
+                    linea_descripcion = linea_descripcion[1:]
                 linea_descripcion = linea_descripcion.strip().upper()
                 linea_descripcion = re.sub(r"([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+", r"\1",
                               normalize("NFD", linea_descripcion), 0, re.I)
-
-                # inserto cada linea en oferta_detalle
-                self.__of_detalle_service.insert_then_return_latest_row(
-                oferta_detalle.OfertaDetalle(
-                    id_oferta,                          # id_oferta
-                    linea_descripcion,                  # descripcion
-                    None,                               # descripcion normalizada
-                    None,                               # ind_activo            (entero)
-                    None,                               # modo_inactivo         (entero)
-                    datetime.now(),                     # fecha_creacion        (fecha)
-                    datetime.now(),                     # fecha_modificacion    (fecha)
-                    None                                # ofertaperfil_id       (entero)
-                ))
+                if (not linea_descripcion == ""):
+                    # inserto cada linea en oferta_detalle
+                    self.__of_detalle_service.insert_then_return_latest_row(
+                    oferta_detalle.OfertaDetalle(
+                        id_oferta,                          # id_oferta
+                        linea_descripcion,                  # descripcion
+                        None,                               # descripcion normalizada
+                        None,                               # ind_activo            (entero)
+                        None,                               # modo_inactivo         (entero)
+                        datetime.now(),                     # fecha_creacion        (fecha)
+                        datetime.now(),                     # fecha_modificacion    (fecha)
+                        None                                # ofertaperfil_id       (entero)
+                    ))
 
 WebScrapingService().iterar_scrape()
