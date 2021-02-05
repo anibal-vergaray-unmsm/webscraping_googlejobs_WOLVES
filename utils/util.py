@@ -4,7 +4,9 @@ import re
 class Utils():
 
     def limpiar_cadena(self, cadena):
+        #espacio en blanco
         cadena = cadena.replace(" ","+")
+        #caracter '#'
         cadena = cadena.replace("#","%23")
         return cadena
 
@@ -57,7 +59,8 @@ class Utils():
         ['octubre', 31],
         ['noviembre', 30],
         ['diciembre', 31]
-    ]
+        ]
+
         fecha_actual = datetime.datetime.now()
         hora_actual = fecha_actual.hour
         dia_actual = fecha_actual.day
