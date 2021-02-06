@@ -18,11 +18,16 @@ class Utils():
             if self.isModalidad(linea_descripcion, titulo) == "PRESENCIAL":
                 return "Presencial"
 
+        return "No Especifica"
+
+
     def obtenerSalario(self, parrafo):
         for linea_descripcion in parrafo:
             linea_descripcion = linea_descripcion.strip()
             if self.isSalario(linea_descripcion):
                 return linea_descripcion
+
+        return "No Especifica"
 
     def isModalidad(self, lineaTexto, titulo):
         modalidad_remoto = ["REMOTO", "REMOTA", "TELETRABAJO"]

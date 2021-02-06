@@ -34,12 +34,6 @@ class WebScrapingService():
     def insert_then_return_latest_row(self, webscraping: webscraping.WebScraping):
         return self.__wscraping_dao.insert_then_return_latest_row(webscraping)
 
-    def llenar_oferta_sd(self):
-        ofertas_sd = self.__of_service.select_oferta_sd()
-        for x in ofertas_sd[:10]:
-            if (len(x[1].splitlines())>1):
-                self.insertarOfertaDetalle(x[1].splitlines(),x[0])
-
     def iterar_scrape(self):
         ksearchs = self.__key_service.select_keyword_search()
         for ksearch in ksearchs:
@@ -137,6 +131,9 @@ class WebScrapingService():
                 print("El registro con id: " + id_anuncioempleo + " ya existe")
             else:
                 parrafo = detalle.text.splitlines()
+                if(len(parrafo)==1):
+                    parrafo=detalle.text.split('.')
+
                 modalidad = util.Utils().obtenerModalidad(parrafo, oferta.text)
                 salario = util.Utils().obtenerSalario(parrafo)
 
@@ -171,6 +168,7 @@ class WebScrapingService():
                     print("No se logró insertar la oferta --> detalle =  "+oferta.text)
 
     def insertarOfertaDetalle(self, parrafo, id_oferta):
+
         for linea_descripcion in parrafo:
             linea_descripcion = linea_descripcion.strip()
             if ((len(linea_descripcion) > 0)):
@@ -193,5 +191,5 @@ class WebScrapingService():
                         None                                # ofertaperfil_id       (entero)
                     ))
 
-#WebScrapingService().iterar_scrape()
-WebScrapingService().llenar_oferta_sd()
+WebScrapingService().iterar_scrape()
+
