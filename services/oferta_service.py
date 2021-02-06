@@ -12,3 +12,6 @@ class OfertaService():
 
     def existe_registro(self, id_anuncioempleo):
         return self.__oferta_dao.existe_registro(id_anuncioempleo)
+
+    def select_oferta_sd(self):
+        return self.__oferta_dao.select_oferta_sd()

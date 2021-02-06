@@ -34,6 +34,12 @@ class WebScrapingService():
     def insert_then_return_latest_row(self, webscraping: webscraping.WebScraping):
         return self.__wscraping_dao.insert_then_return_latest_row(webscraping)
 
+    def llenar_oferta_sd(self):
+        ofertas_sd = self.__of_service.select_oferta_sd()
+        for x in ofertas_sd[:10]:
+            if (len(x[1].splitlines())>1):
+                self.insertarOfertaDetalle(x[1].splitlines(),x[0])
+
     def iterar_scrape(self):
         ksearchs = self.__key_service.select_keyword_search()
         for ksearch in ksearchs:
@@ -187,4 +193,5 @@ class WebScrapingService():
                         None                                # ofertaperfil_id       (entero)
                     ))
 
-WebScrapingService().iterar_scrape()
+#WebScrapingService().iterar_scrape()
+WebScrapingService().llenar_oferta_sd()

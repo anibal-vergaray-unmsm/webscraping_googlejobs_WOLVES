@@ -44,3 +44,9 @@ class OfertaDao():
         params = (id_anuncioempleo,)
 
         return self.__repository.existe_registro(params, sql_select)[0]
+
+    def select_oferta_sd(self):
+        # defino las sentencia sql
+
+        sql_select = "select oferta.id_oferta,oferta_detalle from oferta left join oferta_detalle on oferta_detalle.id_oferta= oferta.id_oferta left join webscraping on oferta.id_webscraping= webscraping.id_webscraping where delati_team = 'Wolves' and oferta_detalle.id_ofertadetalle IS NULL"
+        return self.__repository.select_oferta_sd(sql_select)

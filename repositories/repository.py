@@ -80,6 +80,29 @@ class Repository():
         database.close()
         return keywords
 
+    def select_oferta_sd (self, sql_select):
+        keywords = []
+        try:
+
+            # conecto a base de datos
+            database = self.__conexion.connect()
+
+            # ejecuto la query
+            cursor = database.cursor()
+
+            # obtengo keywords
+            cursor.execute(sql_select)
+            oferta = list(cursor.fetchall())
+
+        except (Exception, psycopg2.DatabaseError) as error:
+            # revertir en caso de error
+            print("Error!, rollback")
+            print(error)
+            database.rollback()
+
+        database.close()
+        return oferta
+
     def existe_registro(self, params, sql_select):
         result = False
         try:
